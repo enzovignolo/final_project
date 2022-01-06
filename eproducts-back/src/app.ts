@@ -7,6 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-app.use(routes);
+app.use('/api/v1', routes);
 
 export default app;
