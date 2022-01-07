@@ -11,7 +11,10 @@ export interface IRepository {
 export interface IProductRepository extends IRepository {}
 
 export interface IUserRepository extends IRepository {}
+
+export interface ICartRepository extends IRepository{}
 export interface Repositories {
 	productRepository: IProductRepository;
 	userRepository: IUserRepository;
+	cartRepository: ICartRepository
 }
