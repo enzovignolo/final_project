@@ -1,77 +1,24 @@
 import { NextFunction, Request, Response } from 'express';
-import ProductModel from '../../db/Models/product.model';
-import repositories from '../../db/repositories';
-import { IProduct } from '../../interfaces/product.interfaces';
-import { Repositories } from '../../interfaces/repository.interfaces';
-import services from '../../services';
+import controllerFactory from './controllerFactory';
 
-const {productServices} = services;
+export default ({ productServices }) => ({
+	getAll(req: Request, res: Response, next: NextFunction) {
+		controllerFactory.getAll(req, res, next, productServices);
+	},
 
+	addOne(req: Request, res: Response, next: NextFunction) {
+		controllerFactory.addOne(req, res, next, productServices);
+	},
 
-const getAll = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		const products = await productServices.getAll();
-		return res.status(200).json(products);
-	} catch (err) {
-		next(err);
-	}
-};
+	getOne(req: Request, res: Response, next: NextFunction) {
+		controllerFactory.getOne(req, res, next, productServices);
+	},
 
-const addOne = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		const data: IProduct = req.body;
-		const newProduct = await productServices.addOne(
-			
-			data
-		);
-		return res.status(200).json(newProduct);
-	} catch (err) {
-		next(err);
-	}
-};
+	updateOne(req: Request, res: Response, next: NextFunction) {
+		controllerFactory.updateOne(req, res, next, productServices);
+	},
 
-const getOne = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		const product = await productServices.getOne(
-			
-			req.params.id
-		);
-		return res.status(200).json(product);
-	} catch (err) {
-		console.log(err);
-		next(err);
-	}
-};
-
-const updateOne = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		const updated = await productServices.updateOneById(
-		
-			req.params.id,
-			req.body
-		);
-		return res.status(200).json(updated);
-	} catch (err) {
-		next(err);
-	}
-};
-
-const deleteOne = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		await productServices.deleteOne(
-			
-			req.params.id
-		);
-		return res.status(203).json();
-	} catch (err) {
-		next(err);
-	}
-};
-
-export default {
-	getAll,
-	getOne,
-	addOne,
-	updateOne,
-	deleteOne,
-};
+	deleteOne(req: Request, res: Response, next: NextFunction) {
+		controllerFactory.deleteOne(req, res, next, productServices);
+	},
+});

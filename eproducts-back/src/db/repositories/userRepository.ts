@@ -1,7 +1,7 @@
 import baseRepository from './baseRepository';
 
-const productRepository = () => ({
+const userRepository = () => ({
 	...baseRepository,
 });
 
-export default productRepository;
+export default userRepository;
