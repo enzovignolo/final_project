@@ -3,11 +3,14 @@ import ProductModel from '../../db/Models/product.model';
 import repositories from '../../db/repositories';
 import { IProduct } from '../../interfaces/product.interfaces';
 import { Repositories } from '../../interfaces/repository.interfaces';
-import ProductServices from '../../services/product.services';
+import services from '../../services';
+
+const {productServices} = services;
+
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const products = await ProductServices.getAll(repositories as Repositories);
+		const products = await productServices.getAll();
 		return res.status(200).json(products);
 	} catch (err) {
 		next(err);
@@ -17,8 +20,8 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 const addOne = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const data: IProduct = req.body;
-		const newProduct = await ProductServices.addOne(
-			repositories as Repositories,
+		const newProduct = await productServices.addOne(
+			
 			data
 		);
 		return res.status(200).json(newProduct);
@@ -29,8 +32,8 @@ const addOne = async (req: Request, res: Response, next: NextFunction) => {
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const product = await ProductServices.getOne(
-			repositories as Repositories,
+		const product = await productServices.getOne(
+			
 			req.params.id
 		);
 		return res.status(200).json(product);
@@ -42,8 +45,8 @@ const getOne = async (req: Request, res: Response, next: NextFunction) => {
 
 const updateOne = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const updated = await ProductServices.updateOneById(
-			repositories as Repositories,
+		const updated = await productServices.updateOneById(
+		
 			req.params.id,
 			req.body
 		);
@@ -55,8 +58,8 @@ const updateOne = async (req: Request, res: Response, next: NextFunction) => {
 
 const deleteOne = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		await ProductServices.deleteOne(
-			repositories as Repositories,
+		await productServices.deleteOne(
+			
 			req.params.id
 		);
 		return res.status(203).json();
