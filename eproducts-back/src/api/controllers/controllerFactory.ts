@@ -1,9 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import ProductModel from '../../db/Models/product.model';
-import repositories from '../../db/repositories';
 import { IProduct } from '../../interfaces/product.interfaces';
-import { Repositories } from '../../interfaces/repository.interfaces';
-import services from '../../services';
 
 const getAll = async (
 	req: Request,

@@ -2,15 +2,16 @@ import { IRepository } from '../interfaces/repository.interfaces';
 
 //All basic services
 
-const getAll = async (repository: IRepository, { DataModel }) => {
+const getAll = async (repository: IRepository, DataModel) => {
 	try {
+		console.log('++++', DataModel);
 		return await repository.getAll(DataModel);
 	} catch (err) {
 		console.log(err);
 		throw err;
 	}
 };
-const getOne = async (repository: IRepository, { DataModel }, id) => {
+const getOne = async (repository: IRepository, DataModel, id) => {
 	try {
 		return await repository.getOne(DataModel, id);
 	} catch (err) {
@@ -20,7 +21,7 @@ const getOne = async (repository: IRepository, { DataModel }, id) => {
 };
 const updateOneById = async (
 	repository: IRepository,
-	{ DataModel },
+	DataModel,
 	id,
 	data: Object
 ) => {
@@ -31,11 +32,7 @@ const updateOneById = async (
 		throw err;
 	}
 };
-const deleteOne = async (
-	repository: IRepository,
-	{ DataModel },
-	id: string
-) => {
+const deleteOne = async (repository: IRepository, DataModel, id: string) => {
 	try {
 		await repository.deleteOne(DataModel, id);
 		return;
@@ -44,7 +41,7 @@ const deleteOne = async (
 		throw err;
 	}
 };
-const addOne = async (repository: IRepository, { DataModel }, data: Object) => {
+const addOne = async (repository: IRepository, DataModel, data: Object) => {
 	try {
 		const newProduct = await repository.addOne(DataModel, data);
 		return newProduct;
