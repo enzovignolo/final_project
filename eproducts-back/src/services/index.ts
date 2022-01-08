@@ -9,5 +9,5 @@ export default {
 	productServices: productServices(repositories, Models),
 	userServices: userServices(repositories, Models),
 	cartServices: cartServices(repositories, Models),
-	authServices: authServices,
+	authServices: authServices(repositories),
 };

@@ -13,7 +13,10 @@ export interface IUserServices extends IService {}
 export interface ICartServices extends IService {
 	getOneDetailed(id: string);
 }
-export interface IAuthServices {}
+export interface IAuthServices {
+	login(email: string, password: string);
+	isLogged(token: string);
+}
 export interface Services {
 	productServices: IProductServices;
 	userServices: IUserServices;

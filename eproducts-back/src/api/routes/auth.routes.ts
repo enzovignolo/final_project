@@ -5,7 +5,7 @@ export default ({ authControllers }: Controllers) => {
 	const router = Router();
 	router.route('/login').post(authControllers.login);
 	router.route('/signup').post(authControllers.signUp);
-	router.route('/isLoggedIn').get(authControllers.isLoggedIn);
+	router.route('/isLogged').get(authControllers.isLogged);
 
 	return router;
 };
