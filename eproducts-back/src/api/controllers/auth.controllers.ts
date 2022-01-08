@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { IError } from '../../interfaces/error.interfaces';
 import { Services } from '../../interfaces/services.interfaces';
 import { IUser } from '../../interfaces/user.interfaces';
 
@@ -12,7 +13,10 @@ export default ({ authServices, userServices }: Services) => ({
 			}
 			const token = await authServices.login(email, password);
 			if (!token) {
-				const err = new Error('Credentials were not correct, please try again');
+				const err: IError = new Error(
+					'Credentials were not correct, please try again'
+				);
+				err.status = 400;
 				throw err;
 			}
 			return res.status(200).json({ token });
@@ -37,7 +41,8 @@ export default ({ authServices, userServices }: Services) => ({
 
 			const isLogged = await authServices.isLogged(token);
 			if (!isLogged) {
-				const err = new Error('User is not logged');
+				const err: IError = new Error('User is not logged');
+				err.status = 401;
 				throw err;
 			}
 			return res.status(200).json(isLogged);
