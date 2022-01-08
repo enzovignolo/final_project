@@ -5,6 +5,6 @@ import userRepository from './userRepository';
 
 export default {
 	productRepository: productRepository(),
-	userRepository: userRepository(),
+	userRepository: userRepository(Models),
 	cartRepository: cartRepository(Models),
 };

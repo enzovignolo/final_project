@@ -1,14 +1,14 @@
 import { ICart } from './cart.interfaces';
 
 export interface IUser {
-	firstname: String;
-	lastname: String;
-	email: String;
-	phoneNumber?: String;
-	address: String;
-	password: String;
-	passwordConfirmation?: String;
-	photo: String;
+	firstname: string;
+	lastname: string;
+	email: string;
+	phoneNumber?: string;
+	address: string;
+	password: string;
+	passwordConfirmation?: string;
+	photo: string;
 	cart: ICart;
 	createdAt: Date;
 	updatedAt: Date;

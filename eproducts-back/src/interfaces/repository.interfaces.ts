@@ -11,7 +11,9 @@ export interface IRepository {
 
 export interface IProductRepository extends IRepository {}
 
-export interface IUserRepository extends IRepository {}
+export interface IUserRepository extends IRepository {
+	getByEmail(email: string);
+}
 
 export interface ICartRepository extends IRepository {
 	getOneDetailed(id: string);
