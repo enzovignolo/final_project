@@ -1,5 +1,7 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Document } from 'mongoose';
+import { ICart } from '../../interfaces/cart.interfaces';
 import { IUser } from '../../interfaces/user.interfaces';
+import bcrypt from 'bcrypt';
 
 const userSchema = new Schema<IUser>({
 	firstname: { type: String, required: [true, 'User must have a firstname'] },
@@ -7,6 +9,7 @@ const userSchema = new Schema<IUser>({
 	address: { type: String, required: [true, 'User must have an address'] },
 	photo: { type: String },
 	phoneNumber: { type: String },
+	cart: { type: Schema.Types.ObjectId, ref: 'Cart' },
 	email: {
 		type: String,
 		required: [true, 'User must have an email associated'],
@@ -25,6 +28,32 @@ const userSchema = new Schema<IUser>({
 			},
 		},
 	},
+});
+
+interface IUserDoc extends Document {
+	firstname: string;
+	lastname: string;
+	email: string;
+	password: string;
+	passwordConfirmation: string;
+	phoneNumber: string;
+	photo: string;
+	cart: ICart;
+	address: string;
+}
+
+//Pre-middleware to encrypt password
+userSchema.pre<IUserDoc>('save', async function (next) {
+	try {
+		if (this.isModified('password')) {
+			this.password = await bcrypt.hash(this.password, 10);
+			this.passwordConfirmation = '';
+		}
+		next();
+	} catch (err) {
+		console.log(err);
+		next(err);
+	}
 });
 
 const UserModel = model<IUser>('User', userSchema);
