@@ -25,7 +25,7 @@ export default ({ cartServices }: Services) => ({
 			return res.status(200).json(cart);
 		} catch (err) {
 			console.log(err);
-			throw err;
+			next(err);
 		}
 	},
 	async addProductToCart(req: Request, res: Response, next: NextFunction) {
@@ -35,7 +35,7 @@ export default ({ cartServices }: Services) => ({
 			const cart = await cartServices.addProductToCart(cartId, prodId);
 			return res.status(200).json({ cart });
 		} catch (err) {
-			throw err;
+			next(err);
 		}
 	},
 });
