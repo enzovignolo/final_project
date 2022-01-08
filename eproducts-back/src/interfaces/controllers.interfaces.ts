@@ -1,4 +1,5 @@
-import { NextFunction, Request } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { ICart } from './cart.interfaces';
 
 export interface IController {
 	getAll(req: Request, res: Response, next: NextFunction): any;
@@ -6,4 +7,16 @@ export interface IController {
 	addOne(req: Request, res: Response, next: NextFunction): any;
 	updateOne(req: Request, res: Response, next: NextFunction): any;
 	deleteOne(req: Request, res: Response, next: NextFunction): any;
+}
+
+export interface ICartControllers extends IController {
+	getOneDetailed(req: Request, res: Response, next: NextFunction);
+}
+
+export interface IProductControllers extends IController {}
+export interface IUserControllers extends IController {}
+export interface Controllers {
+	productControllers: IProductControllers;
+	userControllers: IUserControllers;
+	cartControllers: ICartControllers;
 }

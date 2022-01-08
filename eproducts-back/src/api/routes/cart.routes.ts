@@ -1,10 +1,14 @@
-import { Router } from "express";
+import { Router } from 'express';
+import { Controllers } from '../../interfaces/controllers.interfaces';
 
-
-export default ({cartController})=>{
-    const router = Router();
-    router.route('/').get(cartController.getAll).post(cartController.addOne);
-    router.route('/:id').get(cartController.getOne).put(cartController.updateOne).delete(cartController.deleteOne);
-    return router;
-}
-
+export default ({ cartControllers }: Controllers) => {
+	const router = Router();
+	router.route('/').get(cartControllers.getAll).post(cartControllers.addOne);
+	router.route('/:id/detail').get(cartControllers.getOneDetailed);
+	router
+		.route('/:id')
+		.get(cartControllers.getOne)
+		.put(cartControllers.updateOne)
+		.delete(cartControllers.deleteOne);
+	return router;
+};

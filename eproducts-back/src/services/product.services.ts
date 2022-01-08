@@ -1,26 +1,32 @@
 import { IProduct } from '../interfaces/product.interfaces';
 import { Repositories } from '../interfaces/repository.interfaces';
+import serviceFactory from './serviceFactory';
 
 export default ({ productRepository }: Repositories, { ProductModel }) => ({
 	async getAll() {
 		try {
-			return await productRepository.getAll(ProductModel);
+			return await serviceFactory.getAll(productRepository, ProductModel);
 		} catch (err) {
 			console.log(err);
 			throw err;
 		}
 	},
-	async getOne(productId) {
+	async getOne(id) {
 		try {
-			return await productRepository.getOne(ProductModel, productId);
+			return await serviceFactory.getOne(productRepository, ProductModel, id);
 		} catch (err) {
 			console.log(err);
 			throw err;
 		}
 	},
-	async updateOneById(productId, data: Partial<IProduct>) {
+	async updateOne(id, data: Partial<IProduct>) {
 		try {
-			return await productRepository.updateOne(ProductModel, productId, data);
+			return await serviceFactory.updateOneById(
+				productRepository,
+				ProductModel,
+				id,
+				data
+			);
 		} catch (err) {
 			console.log(err);
 			throw err;
@@ -28,7 +34,7 @@ export default ({ productRepository }: Repositories, { ProductModel }) => ({
 	},
 	async deleteOne(id: string) {
 		try {
-			await productRepository.deleteOne(ProductModel, id);
+			await serviceFactory.deleteOne(productRepository, ProductModel, id);
 			return;
 		} catch (err) {
 			console.log(err);

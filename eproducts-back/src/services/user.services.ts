@@ -47,4 +47,13 @@ export default ({ userRepository }: Repositories, { UserModel }) => ({
 			throw err;
 		}
 	},
+	async deleteOne(id: string) {
+		try {
+			await serviceFactory.deleteOne(userRepository, UserModel, id);
+			return;
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
+	},
 });
