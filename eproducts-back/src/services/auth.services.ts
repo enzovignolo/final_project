@@ -16,7 +16,7 @@ export default ({ userRepository }: Repositories) => ({
 
 			if (await bcrypt.compare(password, user.password)) {
 				const token = await jwt.sign(
-					{ email: user.email, cart: user.cart },
+					{ email: user.email, cartId: user.cart },
 					JWT_SECRET
 				);
 				return token;
@@ -33,6 +33,7 @@ export default ({ userRepository }: Repositories) => ({
 	async isLogged(token: string) {
 		try {
 			const isLogged = await jwt.verify(token, JWT_SECRET);
+			console.log('islogged', isLogged);
 			return isLogged;
 		} catch (err) {
 			console.log(err);

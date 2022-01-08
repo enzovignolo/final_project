@@ -41,13 +41,15 @@ export default ({ authServices, userServices }: Services) => ({
 		try {
 			const token = req.headers.authorization?.split(' ')[1] || '';
 
-			const isLogged = await authServices.isLogged(token);
-			if (!isLogged) {
+			const logInfo = await authServices.isLogged(token);
+			if (!logInfo) {
 				const err: IError = new Error('User is not logged');
 				err.status = 401;
 				throw err;
 			}
-			return res.status(200).json(isLogged);
+			req.session.user = logInfo;
+
+			return next();
 		} catch (err) {
 			next(err);
 		}

@@ -9,6 +9,7 @@ const app = express();
 declare module 'express-session' {
 	interface Session {
 		token?: string;
+		user?: { email: string; cartId: string };
 	}
 }
 

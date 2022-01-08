@@ -12,6 +12,7 @@ export interface IProductServices extends IService {}
 export interface IUserServices extends IService {}
 export interface ICartServices extends IService {
 	getOneDetailed(id: string);
+	addProductToCart(cartId: string, productId: string);
 }
 export interface IAuthServices {
 	login(email: string, password: string);

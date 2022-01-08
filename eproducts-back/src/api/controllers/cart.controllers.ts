@@ -20,10 +20,21 @@ export default ({ cartServices }: Services) => ({
 	},
 	async getOneDetailed(req: Request, res: Response, next: NextFunction) {
 		try {
-			const cart = await cartServices.getOneDetailed(req.params.id);
+			const id = req.session.user.cartId;
+			const cart = await cartServices.getOneDetailed(id);
 			return res.status(200).json(cart);
 		} catch (err) {
 			console.log(err);
+			throw err;
+		}
+	},
+	async addProductToCart(req: Request, res: Response, next: NextFunction) {
+		try {
+			const { email, cartId } = req.session.user;
+			const { prodId } = req.body;
+			const cart = await cartServices.addProductToCart(cartId, prodId);
+			return res.status(200).json({ cart });
+		} catch (err) {
 			throw err;
 		}
 	},
