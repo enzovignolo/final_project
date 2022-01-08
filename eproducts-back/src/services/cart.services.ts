@@ -1,9 +1,7 @@
-import { Document } from 'mongoose';
 import { ICart } from '../interfaces/cart.interfaces';
 import { IError } from '../interfaces/error.interfaces';
 import { IModels } from '../interfaces/models.interfaces';
 import { Repositories } from '../interfaces/repository.interfaces';
-import { IUser } from '../interfaces/user.interfaces';
 import serviceFactory from './serviceFactory';
 
 export default (
@@ -98,5 +96,19 @@ export default (
 		} catch (err) {
 			throw err;
 		}
+	},
+	async deleteFromCart(cartId, productId) {
+		try {
+			const cart: ICart = await cartRepository.getOneDetailed(cartId);
+			const prodsUpdated = cart.products.filter((product) => {
+				console.log(product);
+				return product._id != productId;
+			});
+			console.log('elprodid', productId);
+			console.log('updated', prodsUpdated);
+			cart.products = prodsUpdated;
+			await cart.save();
+			return cart;
+		} catch (err) {}
 	},
 });

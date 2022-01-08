@@ -38,4 +38,13 @@ export default ({ cartServices }: Services) => ({
 			next(err);
 		}
 	},
+	async deleteFromCart(req: Request, res: Response, next: NextFunction) {
+		try {
+			const { cartId } = req.session.user;
+			const cart = await cartServices.deleteFromCart(cartId, req.params.prodId);
+			return res.status(200).json(cart);
+		} catch (err) {
+			next(err);
+		}
+	},
 });
