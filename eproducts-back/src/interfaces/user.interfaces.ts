@@ -10,4 +10,6 @@ export interface IUser {
 	passwordConfirmation?: String;
 	photo: String;
 	cart: ICart;
+	createdAt: Date;
+	updatedAt: Date;
 }
