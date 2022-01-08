@@ -15,8 +15,15 @@ export interface ICartControllers extends IController {
 
 export interface IProductControllers extends IController {}
 export interface IUserControllers extends IController {}
+
+export interface IAuthControllers {
+	login(req: Request, res: Response, next: NextFunction);
+	signUp(req: Request, res: Response, next: NextFunction);
+	isLoggedIn(req: Request, res: Response, next: NextFunction);
+}
 export interface Controllers {
 	productControllers: IProductControllers;
 	userControllers: IUserControllers;
 	cartControllers: ICartControllers;
+	authControllers: IAuthControllers;
 }

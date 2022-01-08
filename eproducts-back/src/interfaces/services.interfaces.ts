@@ -13,8 +13,10 @@ export interface IUserServices extends IService {}
 export interface ICartServices extends IService {
 	getOneDetailed(id: string);
 }
+export interface IAuthServices {}
 export interface Services {
 	productServices: IProductServices;
 	userServices: IUserServices;
 	cartServices: ICartServices;
+	authServices: IAuthServices;
 }
