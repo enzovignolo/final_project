@@ -2,6 +2,7 @@ import { model, Schema, Document } from 'mongoose';
 import { ICart } from '../../interfaces/cart.interfaces';
 import { IUser } from '../../interfaces/user.interfaces';
 import bcrypt from 'bcrypt';
+import CartModel from './cart.model';
 
 const userSchema = new Schema<IUser>(
 	{
@@ -45,12 +46,17 @@ interface IUserDoc extends Document {
 	address: string;
 }
 
-//Pre-middleware to encrypt password
+//Pre-middleware to encrypt password & create cart associated to the user
 userSchema.pre<IUserDoc>('save', async function (next) {
 	try {
 		if (this.isModified('password')) {
 			this.password = await bcrypt.hash(this.password, 10);
 			this.passwordConfirmation = '';
+		}
+
+		if (this.isNew) {
+			const newCart = await CartModel.create({ user: this._id });
+			this.cart = newCart;
 		}
 		next();
 	} catch (err) {
