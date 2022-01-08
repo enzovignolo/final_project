@@ -1,4 +1,5 @@
 import { Model } from 'mongoose';
+import { ICart } from './cart.interfaces';
 
 export interface IRepository {
 	getAll(Model: Model<any>): any;
@@ -11,7 +12,12 @@ export interface IRepository {
 export interface IProductRepository extends IRepository {}
 
 export interface IUserRepository extends IRepository {}
+
+export interface ICartRepository extends IRepository {
+	getOneDetailed(id: string);
+}
 export interface Repositories {
 	productRepository: IProductRepository;
 	userRepository: IUserRepository;
+	cartRepository: ICartRepository;
 }

@@ -4,7 +4,6 @@ import { IRepository } from '../interfaces/repository.interfaces';
 
 const getAll = async (repository: IRepository, DataModel) => {
 	try {
-		console.log('++++', DataModel);
 		return await repository.getAll(DataModel);
 	} catch (err) {
 		console.log(err);
