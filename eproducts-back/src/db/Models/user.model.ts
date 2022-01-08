@@ -3,32 +3,35 @@ import { ICart } from '../../interfaces/cart.interfaces';
 import { IUser } from '../../interfaces/user.interfaces';
 import bcrypt from 'bcrypt';
 
-const userSchema = new Schema<IUser>({
-	firstname: { type: String, required: [true, 'User must have a firstname'] },
-	lastname: { tpye: String },
-	address: { type: String, required: [true, 'User must have an address'] },
-	photo: { type: String },
-	phoneNumber: { type: String },
-	cart: { type: Schema.Types.ObjectId, ref: 'Cart' },
-	email: {
-		type: String,
-		required: [true, 'User must have an email associated'],
-		unique: true,
-	},
-	password: {
-		type: String,
-		required: [true, 'User must have a password'],
-		minlength: [8, 'Password must be at least 8 characters long'],
-	},
-	passwordConfirmation: {
-		type: String,
-		validate: {
-			validator: function () {
-				return this.password === this.passwordConfirmation;
+const userSchema = new Schema<IUser>(
+	{
+		firstname: { type: String, required: [true, 'User must have a firstname'] },
+		lastname: { tpye: String },
+		address: { type: String, required: [true, 'User must have an address'] },
+		photo: { type: String },
+		phoneNumber: { type: String },
+		cart: { type: Schema.Types.ObjectId, ref: 'Cart' },
+		email: {
+			type: String,
+			required: [true, 'User must have an email associated'],
+			unique: true,
+		},
+		password: {
+			type: String,
+			required: [true, 'User must have a password'],
+			minlength: [8, 'Password must be at least 8 characters long'],
+		},
+		passwordConfirmation: {
+			type: String,
+			validate: {
+				validator: function () {
+					return this.password === this.passwordConfirmation;
+				},
 			},
 		},
 	},
-});
+	{ timestamps: true }
+);
 
 interface IUserDoc extends Document {
 	firstname: string;
