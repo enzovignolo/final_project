@@ -8,6 +8,11 @@ export default ({ cartControllers, authControllers }: Controllers) => {
 		.route('/userCart')
 		.get(authControllers.isLogged, cartControllers.getOneDetailed)
 		.put(authControllers.isLogged, cartControllers.addProductToCart);
+	router.delete(
+		'/userCart/:prodId',
+		authControllers.isLogged,
+		cartControllers.deleteFromCart
+	);
 	router
 		.route('/:id')
 		.get(cartControllers.getOne)

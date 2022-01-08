@@ -12,6 +12,7 @@ export interface IController {
 export interface ICartControllers extends IController {
 	getOneDetailed(req: Request, res: Response, next: NextFunction);
 	addProductToCart(req: Request, res: Response, next: NextFunction);
+	deleteFromCart(req: Request, res: Response, next: NextFunction);
 }
 
 export interface IProductControllers extends IController {}
