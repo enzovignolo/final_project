@@ -14,12 +14,12 @@ declare module 'express-session' {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(
 	session({
 		secret: SESSION_SECRET,
 		resave: false,
-		saveUninitialized: true,
+		saveUninitialized: false,
 		cookie: { maxAge: SESSION_MAXAGE },
 	})
 );

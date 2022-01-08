@@ -9,7 +9,7 @@ const getAll = async (
 ) => {
 	try {
 		const data = await service.getAll();
-		req.session.token = 'holis';
+		console.log('aaa');
 		return res.status(200).json(data);
 	} catch (err) {
 		next(err);
