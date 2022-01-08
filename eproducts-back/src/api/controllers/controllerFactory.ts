@@ -9,6 +9,7 @@ const getAll = async (
 ) => {
 	try {
 		const data = await service.getAll();
+		console.log('aaa');
 		return res.status(200).json(data);
 	} catch (err) {
 		next(err);

@@ -19,6 +19,8 @@ export default ({ authServices, userServices }: Services) => ({
 				err.status = 400;
 				throw err;
 			}
+			req.session.token = token;
+			console.log('aca', req.session);
 			return res.status(200).json({ token });
 		} catch (err) {
 			next(err);
