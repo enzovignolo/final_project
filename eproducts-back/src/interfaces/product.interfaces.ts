@@ -3,4 +3,6 @@ export interface IProduct {
 	price: Number;
 	stock: Number;
 	images: String[];
+	createdAt: Date;
+	updatedAt: Date;
 }

@@ -1,3 +1,5 @@
+import { ICart } from './cart.interfaces';
+
 export interface IUser {
 	firstname: String;
 	lastname: String;
@@ -7,4 +9,7 @@ export interface IUser {
 	password: String;
 	passwordConfirmation?: String;
 	photo: String;
+	cart: ICart;
+	createdAt: Date;
+	updatedAt: Date;
 }
