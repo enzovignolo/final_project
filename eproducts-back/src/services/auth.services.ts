@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { IUser } from '../interfaces/user.interfaces';
 import { JWT_SECRET } from '../config';
+import { IError } from '../interfaces/error.interfaces';
 
 export default ({ userRepository }: Repositories) => ({
 	async login(email: string, password: string) {
@@ -20,6 +21,8 @@ export default ({ userRepository }: Repositories) => ({
 				);
 				return token;
 			} else {
+				const err: IError = new Error('Wrong password!');
+				err.status = 400;
 				return false;
 			}
 		} catch (err) {
