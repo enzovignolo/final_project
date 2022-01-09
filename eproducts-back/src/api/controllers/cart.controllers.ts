@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Services } from '../../interfaces/services.interfaces';
 import controllerFactory from './controllerFactory';
 
-export default ({ cartServices }: Services) => ({
+export default ({ cartServices, notificationServices }: Services) => ({
 	getAll(req: Request, res: Response, next: NextFunction) {
 		controllerFactory.getAll(req, res, next, cartServices);
 	},
@@ -43,6 +43,27 @@ export default ({ cartServices }: Services) => ({
 			const { cartId } = req.session.user;
 			const cart = await cartServices.deleteFromCart(cartId, req.params.prodId);
 			return res.status(200).json(cart);
+		} catch (err) {
+			next(err);
+		}
+	},
+	async purchaseCart(req: Request, res: Response, next: NextFunction) {
+		try {
+			const { cartId, email } = req.session.user;
+			const purchase: {
+				products: String[];
+				totalCost: number;
+				prodIds: String[];
+			} = await cartServices.purchaseCart(cartId, email);
+
+			notificationServices.sendGmailEmail({
+				receiver: email,
+				subject: 'Your purchase',
+				htmlText: `<h1>Your purchase was completed</h1>
+						<h2>Products:${purchase.products.join(' ')}</h2>
+						<h2>Total cost : ${purchase.totalCost}</h2>`,
+			});
+			return res.status(200).json(purchase);
 		} catch (err) {
 			next(err);
 		}

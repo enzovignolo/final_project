@@ -16,6 +16,7 @@ export interface ICartServices extends IService {
 	getOneDetailed(id: string);
 	addProductToCart(cartId: string, productId: string);
 	deleteFromCart(cartId: string, productId: string);
+	purchaseCart(cartId: string, email: string);
 }
 export interface IAuthServices {
 	login(email: string, password: string);

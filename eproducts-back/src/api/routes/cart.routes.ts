@@ -4,6 +4,11 @@ import { Controllers } from '../../interfaces/controllers.interfaces';
 export default ({ cartControllers, authControllers }: Controllers) => {
 	const router = Router();
 	router.route('/').get(cartControllers.getAll).post(cartControllers.addOne);
+	router.get(
+		'/userCart/purchaseCart',
+		authControllers.isLogged,
+		cartControllers.purchaseCart
+	);
 	router
 		.route('/userCart')
 		.get(authControllers.isLogged, cartControllers.getOneDetailed)
