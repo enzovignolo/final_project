@@ -13,7 +13,7 @@ const LoginForm = () => {
 				email: e.target.email.value,
 				password: e.target.password.value,
 			});
-			const token = response.data;
+			const token = response.data.token;
 
 			userSettings.setToken(token);
 			history.push('/');
