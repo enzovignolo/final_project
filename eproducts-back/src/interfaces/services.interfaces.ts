@@ -8,7 +8,9 @@ export interface IService {
 	updateOne(id: string, data: Object);
 	deleteOne(id: string);
 }
-export interface IProductServices extends IService {}
+export interface IProductServices extends IService {
+	getFiltered(queryObj: {});
+}
 export interface IUserServices extends IService {}
 export interface ICartServices extends IService {
 	getOneDetailed(id: string);

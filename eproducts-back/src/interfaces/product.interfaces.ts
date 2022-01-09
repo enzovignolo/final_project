@@ -4,7 +4,8 @@ export interface IProduct extends Document {
 	name: String;
 	price: Number;
 	stock: Number;
-	images: String[];
+	thumbnail: String;
 	createdAt: Date;
 	updatedAt: Date;
+	category: String;
 }
