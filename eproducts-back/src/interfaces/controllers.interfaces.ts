@@ -24,6 +24,7 @@ export interface IAuthControllers {
 	login(req: Request, res: Response, next: NextFunction);
 	signUp(req: Request, res: Response, next: NextFunction);
 	isLogged(req: Request, res: Response, next: NextFunction);
+	logout(req: Request, res: Response, next: NextFunction);
 }
 export interface Controllers {
 	productControllers: IProductControllers;

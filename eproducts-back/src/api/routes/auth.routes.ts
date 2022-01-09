@@ -6,6 +6,6 @@ export default ({ authControllers }: Controllers) => {
 	router.route('/login').post(authControllers.login);
 	router.route('/signup').post(authControllers.signUp);
 	router.route('/isLogged').get(authControllers.isLogged);
-
+	router.route('/logout').get(authControllers.logout);
 	return router;
 };
