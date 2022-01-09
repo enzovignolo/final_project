@@ -30,10 +30,13 @@ export interface MailData {
 export interface INotificationServices {
 	sendGmailEmail(MailData: MailData);
 }
+
+export interface IPurchaseServices extends IService {}
 export interface Services {
 	productServices: IProductServices;
 	userServices: IUserServices;
 	cartServices: ICartServices;
 	authServices: IAuthServices;
 	notificationServices: INotificationServices;
+	purchaseServices: IPurchaseServices;
 }

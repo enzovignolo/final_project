@@ -26,9 +26,11 @@ export interface IAuthControllers {
 	isLogged(req: Request, res: Response, next: NextFunction);
 	logout(req: Request, res: Response, next: NextFunction);
 }
+export interface IPurchaseControllers extends IController {}
 export interface Controllers {
 	productControllers: IProductControllers;
 	userControllers: IUserControllers;
 	cartControllers: ICartControllers;
 	authControllers: IAuthControllers;
+	purchaseControllers: IPurchaseControllers;
 }

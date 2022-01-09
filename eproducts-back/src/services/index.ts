@@ -5,6 +5,7 @@ import cartServices from './cart.services';
 import mailTransporter from './helpers/mailTransporter';
 import notificationServices from './notification.services';
 import productServices from './product.services';
+import purchaseServices from './purchase.services';
 import userServices from './user.services';
 
 export default {
@@ -12,5 +13,6 @@ export default {
 	userServices: userServices(repositories, Models),
 	cartServices: cartServices(repositories, Models),
 	authServices: authServices(repositories),
+	purchaseServices: purchaseServices(repositories, Models),
 	notificationServices: notificationServices(mailTransporter),
 };

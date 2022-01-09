@@ -20,8 +20,10 @@ export interface IUserRepository extends IRepository {
 export interface ICartRepository extends IRepository {
 	getOneDetailed(id: string);
 }
+export interface IPurchaseRepository extends IRepository {}
 export interface Repositories {
 	productRepository: IProductRepository;
 	userRepository: IUserRepository;
 	cartRepository: ICartRepository;
+	purchaseRepository: IPurchaseRepository;
 }
