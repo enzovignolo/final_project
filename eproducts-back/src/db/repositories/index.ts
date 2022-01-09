@@ -4,7 +4,7 @@ import productRepository from './productRepository';
 import userRepository from './userRepository';
 
 export default {
-	productRepository: productRepository(),
+	productRepository: productRepository(Models),
 	userRepository: userRepository(Models),
 	cartRepository: cartRepository(Models),
 };

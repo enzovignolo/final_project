@@ -15,7 +15,9 @@ export interface ICartControllers extends IController {
 	deleteFromCart(req: Request, res: Response, next: NextFunction);
 }
 
-export interface IProductControllers extends IController {}
+export interface IProductControllers extends IController {
+	getFiltered(req: Request, res: Response, next: NextFunction);
+}
 export interface IUserControllers extends IController {}
 
 export interface IAuthControllers {

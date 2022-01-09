@@ -52,7 +52,7 @@ const Products = (query) => {
 		const fetchData = async () => {
 			const result = await axios({
 				method: 'GET',
-				url: `${envVars.apiHost}/products`,
+				url: `${envVars.apiHost}/products/filter`,
 
 				withCredentials: true,
 				params: {
@@ -132,6 +132,9 @@ const Products = (query) => {
 									alt={product.name}
 								></img>
 							</h4>
+							<p className="card-text">Stock :{product.stock}</p>
+							<p className="card-text">Category :{product.category}</p>
+
 							<p className="card-text">Price :${product.price}</p>
 						</div>
 						{userSettings.token && userSettings.token !== '' ? (

@@ -8,8 +8,9 @@ const productSchema = new Schema<IProduct>(
 			type: Number,
 			required: [true, 'Indicate a price for the product'],
 		},
+		category: { type: String },
 		stock: { type: Number, default: 0 },
-		images: [{ type: String }],
+		thumbnail: { type: String },
 	},
 	{ timestamps: true }
 );

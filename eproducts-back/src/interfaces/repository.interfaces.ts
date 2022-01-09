@@ -9,7 +9,9 @@ export interface IRepository {
 	addOne(Model: Model<any>, Object): any;
 }
 
-export interface IProductRepository extends IRepository {}
+export interface IProductRepository extends IRepository {
+	getFiltered(filter: Object, sortBy: Object);
+}
 
 export interface IUserRepository extends IRepository {
 	getByEmail(email: string);

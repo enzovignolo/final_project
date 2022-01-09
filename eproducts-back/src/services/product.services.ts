@@ -1,5 +1,7 @@
+import { IError } from '../interfaces/error.interfaces';
 import { IProduct } from '../interfaces/product.interfaces';
 import { Repositories } from '../interfaces/repository.interfaces';
+import filterBuilder from './helpers/filterBuilder';
 import serviceFactory from './serviceFactory';
 
 export default ({ productRepository }: Repositories, { ProductModel }) => ({
@@ -47,6 +49,33 @@ export default ({ productRepository }: Repositories, { ProductModel }) => ({
 			return newProduct;
 		} catch (err) {
 			console.log(err);
+			throw err;
+		}
+	},
+	async getFiltered(queryObj) {
+		try {
+			let filter = {};
+			let sortBy = {};
+
+			//Build the filter from the query string
+
+			filter = filterBuilder(queryObj);
+			console.log('el objjj', queryObj);
+			if (queryObj.sort) {
+				/* const dir = queryObj.sortDir == 'asc' ? '' : '-';
+				sortBy = `${dir || ''}${queryObj.sortBy}`; */
+				sortBy = queryObj.sort;
+			}
+
+			const products = await productRepository.getFiltered(filter, sortBy);
+
+			if (!products) {
+				const err: IError = new Error('No products was loaded');
+				err.status = 404;
+				throw err;
+			}
+			return products;
+		} catch (err) {
 			throw err;
 		}
 	},
