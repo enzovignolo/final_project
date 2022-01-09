@@ -3,7 +3,11 @@ import { IError } from '../../interfaces/error.interfaces';
 import { Services } from '../../interfaces/services.interfaces';
 import { IUser } from '../../interfaces/user.interfaces';
 
-export default ({ authServices, userServices }: Services) => ({
+export default ({
+	authServices,
+	userServices,
+	notificationServices,
+}: Services) => ({
 	async login(req: Request, res: Response, next: NextFunction) {
 		try {
 			const { email, password } = req.body;
@@ -30,7 +34,13 @@ export default ({ authServices, userServices }: Services) => ({
 		try {
 			const newUser: IUser = await userServices.addOne(req.body);
 			const token = await authServices.login(newUser.email, req.body.password);
-
+			await notificationServices.sendGmailEmail({
+				receiver: newUser.email,
+				htmlText: `<h1>Welcome to eproducts</h1>
+							<h2>Hello ${newUser.firstname}</h2>
+							<p>You can start shop now!</p>`,
+				subject: 'Succesfuly signup!',
+			});
 			return res.status(200).json({ token });
 		} catch (err) {
 			console.log(err);

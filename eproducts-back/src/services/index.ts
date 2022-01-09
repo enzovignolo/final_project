@@ -2,6 +2,8 @@ import Models from '../db/Models';
 import repositories from '../db/repositories';
 import authServices from './auth.services';
 import cartServices from './cart.services';
+import mailTransporter from './helpers/mailTransporter';
+import notificationServices from './notification.services';
 import productServices from './product.services';
 import userServices from './user.services';
 
@@ -10,4 +12,5 @@ export default {
 	userServices: userServices(repositories, Models),
 	cartServices: cartServices(repositories, Models),
 	authServices: authServices(repositories),
+	notificationServices: notificationServices(mailTransporter),
 };

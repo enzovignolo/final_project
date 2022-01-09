@@ -8,4 +8,8 @@ export const DB_URI = process.env.DB_URI;
 export const JWT_SECRET = process.env.JWT_SECRET;
 export const SESSION_SECRET = process.env.SESSION_SECRET;
 export const SESSION_MAXAGE = Number(process.env.SESSION_MAXAGE);
+export const MAIL = {
+	GMAIL_USER: process.env.GMAIL_USER,
+	GMAIL_PASS: process.env.GMAIL_PASS,
+};
 export default { PORT, ENVIROMENT, JWT_SECRET };

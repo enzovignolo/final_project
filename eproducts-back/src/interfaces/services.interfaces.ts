@@ -21,9 +21,19 @@ export interface IAuthServices {
 	login(email: string, password: string);
 	isLogged(token: string);
 }
+export interface MailData {
+	subject?: String;
+	bodyText?: String;
+	htmlText?: String;
+	receiver: String;
+}
+export interface INotificationServices {
+	sendGmailEmail(MailData: MailData);
+}
 export interface Services {
 	productServices: IProductServices;
 	userServices: IUserServices;
 	cartServices: ICartServices;
 	authServices: IAuthServices;
+	notificationServices: INotificationServices;
 }
