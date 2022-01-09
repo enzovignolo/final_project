@@ -40,7 +40,7 @@ const Products = (query) => {
 		console.log(filter.sort);
 	}
 	const userSettings = useContext(AppContext);
-	console.log('llos user', userSettings);
+
 	//Declaring hooks and states
 	const history = useHistory();
 	const [products, setProducts] = useState({ products: [] });
@@ -74,9 +74,9 @@ const Products = (query) => {
 		try {
 			const result = await axios({
 				method: 'PUT',
-				url: `${envVars.apiHost}/users/${userSettings.userId}/carrito/${productId}`,
-
-				headers: { user: userSettings.userId },
+				url: `${envVars.apiHost}/carts/userCart`,
+				headers: { authorization: 'Bearer ' + userSettings.token },
+				data: { prodId: productId },
 			});
 		} catch (err) {
 			setError({

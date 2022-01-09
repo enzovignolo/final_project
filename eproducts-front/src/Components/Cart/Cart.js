@@ -10,19 +10,24 @@ const Cart = () => {
 	const userSettings = useContext(AppContext);
 
 	const userId = userSettings.userId;
+	const token = userSettings.token;
 
 	const [cartProducts, updateCart] = useState();
 	const [reload, setReload] = useState(false);
 	const history = useHistory();
+	console.log('los settings', userSettings);
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const result = await axios({
 					method: 'GET',
-					url: `${envVars.apiHost}/users/${userId}/carrito`,
+					url: `${envVars.apiHost}/carts/userCart`,
+					headers: {
+						authorization: 'Bearer ' + token,
+					},
 				});
-
-				updateCart(result.data.data.products);
+				console.log(result.data);
+				updateCart(result.data.products);
 			} catch (err) {
 				updateCart({
 					error: 'Cart not found, please create a cart for that user id!',
@@ -35,8 +40,9 @@ const Cart = () => {
 	}, [reload, userId]);
 	const handleDeleteProduct = async (productId) => {
 		const result = await axios({
-			url: `${envVars.apiHost}/users/${userId}/carrito/${productId}`,
+			url: `${envVars.apiHost}/carts/userCart/${productId}`,
 			method: 'DELETE',
+			headers: { authorization: 'Bearer ' + token },
 		});
 		setReload(true);
 	};
