@@ -8,18 +8,19 @@ import envVars from '../../envVars';
 const PurchaseButton = () => {
 	const history = useHistory();
 	const userSettings = useContext(AppContext);
+	const token = userSettings.token;
 	const handleClick = async (e) => {
 		try {
 			history.push('/');
 			const productsToBuy = userSettings.cart;
-			await axios.post(
-				`${envVars.apiHost}/users/${userSettings.userId}/comprar`,
-				{
-					data: productsToBuy,
-				}
-			);
+			await axios({
+				method: 'GET',
+				url: `${envVars.apiHost}/carts/userCart/purchaseCart`,
+				headers: { authorization: 'Bearer ' + token },
+			});
 		} catch (err) {
 			console.log(err);
+			throw err;
 		}
 	};
 	return (

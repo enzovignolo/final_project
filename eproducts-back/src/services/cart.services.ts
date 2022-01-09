@@ -1,3 +1,4 @@
+import userRepository from '../db/repositories/userRepository';
 import { ICart } from '../interfaces/cart.interfaces';
 import { IError } from '../interfaces/error.interfaces';
 import { IModels } from '../interfaces/models.interfaces';
@@ -5,8 +6,13 @@ import { Repositories } from '../interfaces/repository.interfaces';
 import serviceFactory from './serviceFactory';
 
 export default (
-	{ cartRepository, productRepository }: Repositories,
-	{ CartModel, ProductModel }: IModels
+	{
+		cartRepository,
+		productRepository,
+		purchaseRepository,
+		userRepository,
+	}: Repositories,
+	{ CartModel, ProductModel, PurchaseModel }: IModels
 ) => ({
 	async getAll() {
 		try {
@@ -104,11 +110,45 @@ export default (
 				console.log(product);
 				return product._id != productId;
 			});
-			console.log('elprodid', productId);
-			console.log('updated', prodsUpdated);
+
 			cart.products = prodsUpdated;
 			await cart.save();
 			return cart;
-		} catch (err) {}
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
+	},
+	//This service empties the cart and create a purchase
+	async purchaseCart(cartId: string, email: string) {
+		try {
+			const cart: ICart = await cartRepository.getOneDetailed(cartId);
+			let finalPurchase: {
+				products: String[];
+				totalCost: number;
+				prodIds: String[];
+			} = {
+				products: [],
+				prodIds: [],
+				totalCost: 0,
+			};
+
+			for (let product of cart.products) {
+				finalPurchase.products.push(product.name);
+				finalPurchase.totalCost += product.price;
+				finalPurchase.prodIds.push(product._id);
+			}
+			await purchaseRepository.addOne(PurchaseModel, {
+				buyer: cart.user._id,
+				products: finalPurchase.prodIds,
+				totalCost: finalPurchase.totalCost,
+			});
+			cart.products = [];
+			await cart.save();
+			return finalPurchase;
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
 	},
 });

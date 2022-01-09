@@ -5,4 +5,5 @@ import { IUser } from './user.interfaces';
 export interface IPurchase extends Document {
 	buyer: IUser;
 	products: IProduct[];
+	totalCost: number;
 }

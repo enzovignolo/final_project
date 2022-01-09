@@ -1,6 +1,7 @@
+import { Document } from 'mongoose';
 import { ICart } from './cart.interfaces';
 
-export interface IUser {
+export interface IUser extends Document {
 	firstname: string;
 	lastname: string;
 	email: string;
