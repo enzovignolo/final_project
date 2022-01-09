@@ -9,21 +9,20 @@ const SignUpForm = () => {
 	const handleSubmit = async (e) => {
 		try {
 			e.preventDefault();
-			console.log(e.target);
+
 			const response = await axios.post(`${envVars.apiHost}/auth/signup`, {
 				username: e.target.username.value,
 				password: e.target.password.value,
-				name: e.target.name.value,
-				lastName: e.target.lastName.value,
+				firstname: e.target.name.value,
+				lastname: e.target.lastName.value,
 				email: e.target.username.value,
-				alias: e.target.alias.value,
-				age: e.target.age.value,
+				address: e.target.address.value,
 
 				passwordConfirmation: e.target.passwordConfirmation.value,
 			});
-			const user = response.data.user;
+			const token = response.data.token;
 
-			userSettings.setUserId(user._id);
+			userSettings.setToken(token);
 			history.push('/');
 		} catch (err) {
 			console.log(err);
@@ -67,6 +66,15 @@ const SignUpForm = () => {
 						/>
 					</div>
 					<div class="form-group  m-auto">
+						<label class="form-label mt-4">Address</label>
+						<input
+							type="text"
+							class="form-control"
+							name="address"
+							placeholder="Address"
+						/>
+					</div>
+					<div class="form-group  m-auto">
 						<label class="form-label mt-4">Password</label>
 						<input
 							type="password"
@@ -84,26 +92,7 @@ const SignUpForm = () => {
 							placeholder="Password confirmation"
 						/>
 					</div>
-					<div class="form-group  m-auto">
-						<label class="form-label mt-4">Age</label>
-						<input
-							type="number"
-							step="1"
-							min="0"
-							class="form-control"
-							name="age"
-							placeholder="Age"
-						/>
-					</div>
-					<div class="form-group  m-auto">
-						<label class="form-label mt-4">Alias</label>
-						<input
-							type="text"
-							class="form-control"
-							name="alias"
-							placeholder="alias"
-						/>
-					</div>
+
 					<div class="form-group mt-3 mb-3 m-auto d-flex justify-content-center">
 						<button type="submit" class="btn btn-outline-primary ">
 							Sign up

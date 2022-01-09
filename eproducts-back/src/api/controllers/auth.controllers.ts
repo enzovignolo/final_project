@@ -54,4 +54,8 @@ export default ({ authServices, userServices }: Services) => ({
 			next(err);
 		}
 	},
+	logout(req: Request, res: Response, next: NextFunction) {
+		req.session.destroy(() => {});
+		return res.status(200).json('logged out!');
+	},
 });
