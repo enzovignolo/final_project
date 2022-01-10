@@ -8,6 +8,7 @@ const Logout = () => {
 	const history = useHistory();
 	const userSettings = useContext(AppContext);
 	userSettings.setToken(false);
+	userSettings.setRole(false);
 	history.push('/');
 	(async () => {
 		try {
