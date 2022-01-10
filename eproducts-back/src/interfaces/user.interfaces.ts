@@ -13,4 +13,5 @@ export interface IUser extends Document {
 	cart: ICart;
 	createdAt: Date;
 	updatedAt: Date;
+	role: string;
 }

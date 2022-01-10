@@ -21,6 +21,7 @@ export interface ICartServices extends IService {
 export interface IAuthServices {
 	login(email: string, password: string);
 	isLogged(token: string);
+	checkRole(email: string);
 }
 export interface MailData {
 	subject?: String;

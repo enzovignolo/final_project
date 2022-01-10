@@ -40,7 +40,7 @@ const Products = (query) => {
 		console.log(filter.sort);
 	}
 	const userSettings = useContext(AppContext);
-
+	console.log('loset', userSettings);
 	//Declaring hooks and states
 	const history = useHistory();
 	const [products, setProducts] = useState({ products: [] });

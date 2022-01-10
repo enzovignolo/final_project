@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { Controllers } from '../../interfaces/controllers.interfaces';
 import controllers from '../controllers';
 
-export default ({ productControllers }: Controllers) => {
+export default ({ productControllers, authControllers }: Controllers) => {
 	const router = Router();
 
 	router

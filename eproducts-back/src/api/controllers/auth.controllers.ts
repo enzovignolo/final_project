@@ -15,17 +15,17 @@ export default ({
 				const err = new Error('Please indicate email and password');
 				next(err);
 			}
-			const token = await authServices.login(email, password);
-			if (!token) {
+			const logInfo = await authServices.login(email, password);
+			if (!logInfo.token) {
 				const err: IError = new Error(
 					'Credentials were not correct, please try again'
 				);
 				err.status = 400;
 				throw err;
 			}
-			req.session.token = token;
-			console.log('aca', req.session);
-			return res.status(200).json({ token });
+			req.session.token = logInfo.token;
+
+			return res.status(200).json(logInfo);
 		} catch (err) {
 			next(err);
 		}
@@ -67,5 +67,19 @@ export default ({
 	logout(req: Request, res: Response, next: NextFunction) {
 		req.session.destroy(() => {});
 		return res.status(200).json('logged out!');
+	},
+	async isAdmin(req: Request, res: Response, next: NextFunction) {
+		try {
+			const email = req.session.user.email;
+			const userRole = await authServices.checkRole(email);
+			if (userRole == 'admin') next();
+			else {
+				const err: IError = new Error('You do not have access to this action');
+				err.status = 403;
+				next(err);
+			}
+		} catch (err) {
+			next(err);
+		}
 	},
 });

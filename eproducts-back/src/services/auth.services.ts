@@ -16,10 +16,10 @@ export default ({ userRepository }: Repositories) => ({
 
 			if (await bcrypt.compare(password, user.password)) {
 				const token = await jwt.sign(
-					{ email: user.email, cartId: user.cart },
+					{ email: user.email, cartId: user.cart, role: user.role || 'user' },
 					JWT_SECRET
 				);
-				return token;
+				return { token, role: user.role };
 			} else {
 				const err: IError = new Error('Wrong password!');
 				err.status = 400;
@@ -35,6 +35,15 @@ export default ({ userRepository }: Repositories) => ({
 			const isLogged = await jwt.verify(token, JWT_SECRET);
 			console.log('islogged', isLogged);
 			return isLogged;
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
+	},
+	async checkRole(email: string) {
+		try {
+			const user: IUser = await userRepository.getByEmail(email);
+			return user.role;
 		} catch (err) {
 			console.log(err);
 			throw err;

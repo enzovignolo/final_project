@@ -14,6 +14,8 @@ const LoginForm = () => {
 				password: e.target.password.value,
 			});
 			const token = response.data.token;
+			const role = response.data.role;
+			userSettings.setRole(role);
 
 			userSettings.setToken(token);
 			history.push('/');

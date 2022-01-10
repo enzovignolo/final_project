@@ -26,6 +26,7 @@ export interface IAuthControllers {
 	signUp(req: Request, res: Response, next: NextFunction);
 	isLogged(req: Request, res: Response, next: NextFunction);
 	logout(req: Request, res: Response, next: NextFunction);
+	isAdmin(req: Request, res: Response, next: NextFunction);
 }
 export interface IPurchaseControllers extends IController {}
 

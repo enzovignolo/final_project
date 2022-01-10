@@ -30,6 +30,7 @@ const userSchema = new Schema<IUser>(
 				},
 			},
 		},
+		role: { type: String, default: 'user' },
 	},
 	{ timestamps: true }
 );
