@@ -13,7 +13,6 @@ const socketServices = async (io, socket, { chatServices }: Services) => {
 
 		socket.on('message sent', async (messageRcv) => {
 			try {
-				console.log('chate general');
 				await chatServices.newMsg(messageRcv);
 				const messages = await chatServices.getAll();
 				io.emit('new message', messages);
@@ -27,7 +26,6 @@ const socketServices = async (io, socket, { chatServices }: Services) => {
 				const messages = await chatServices.getEmailFiltered(
 					filterEmail.trim()
 				);
-				console.log(messages);
 
 				io.emit('new filtered', messages);
 			} catch (err) {
