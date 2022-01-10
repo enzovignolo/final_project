@@ -28,10 +28,16 @@ export interface IAuthControllers {
 	logout(req: Request, res: Response, next: NextFunction);
 }
 export interface IPurchaseControllers extends IController {}
+
+export interface IChatControllers extends IController {
+	viewAllMessages(req: Request, res: Response, next: NextFunction);
+	viewFilteredMessages(req: Request, res: Response, next: NextFunction);
+}
 export interface Controllers {
 	productControllers: IProductControllers;
 	userControllers: IUserControllers;
 	cartControllers: ICartControllers;
 	authControllers: IAuthControllers;
 	purchaseControllers: IPurchaseControllers;
+	chatControllers: IChatControllers;
 }

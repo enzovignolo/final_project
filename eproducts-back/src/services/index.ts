@@ -2,6 +2,7 @@ import Models from '../db/Models';
 import repositories from '../db/repositories';
 import authServices from './auth.services';
 import cartServices from './cart.services';
+import chatServices from './chat.services';
 import mailTransporter from './helpers/mailTransporter';
 import notificationServices from './notification.services';
 import productServices from './product.services';
@@ -15,4 +16,5 @@ export default {
 	authServices: authServices(repositories),
 	purchaseServices: purchaseServices(repositories, Models),
 	notificationServices: notificationServices(mailTransporter),
+	chatServices: chatServices(repositories, Models),
 };

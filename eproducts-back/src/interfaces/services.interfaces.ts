@@ -33,6 +33,10 @@ export interface INotificationServices {
 }
 
 export interface IPurchaseServices extends IService {}
+export interface IChatServices extends IService {
+	newMsg(msg: { userEmail: string; message: string });
+	getEmailFiltered(email: string);
+}
 export interface Services {
 	productServices: IProductServices;
 	userServices: IUserServices;
@@ -40,4 +44,5 @@ export interface Services {
 	authServices: IAuthServices;
 	notificationServices: INotificationServices;
 	purchaseServices: IPurchaseServices;
+	chatServices: IChatServices;
 }
