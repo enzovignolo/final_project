@@ -21,9 +21,15 @@ export interface ICartRepository extends IRepository {
 	getOneDetailed(id: string);
 }
 export interface IPurchaseRepository extends IRepository {}
+
+export interface IChatRepository extends IRepository {
+	getAllDetailed();
+	getFiltered(Object);
+}
 export interface Repositories {
 	productRepository: IProductRepository;
 	userRepository: IUserRepository;
 	cartRepository: ICartRepository;
 	purchaseRepository: IPurchaseRepository;
+	chatRepository: IChatRepository;
 }

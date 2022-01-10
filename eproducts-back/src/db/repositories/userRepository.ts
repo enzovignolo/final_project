@@ -5,7 +5,8 @@ const userRepository = ({ UserModel }: IModels) => ({
 	...baseRepository,
 	async getByEmail(email: string) {
 		try {
-			const user = await UserModel.findOne({ email });
+			console.log(typeof email);
+			const user = await UserModel.findOne({ email: email });
 			return user;
 		} catch (err) {
 			console.log(err);
